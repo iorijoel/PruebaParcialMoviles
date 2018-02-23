@@ -3,9 +3,15 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+<<<<<<< HEAD
       <module fileurl="file://C:\Users\MANNE\Documents\PruebaParcialMoviles\geofen\app\app.iml" filepath="C:\Users\MANNE\Documents\PruebaParcialMoviles\geofen\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/geofen.iml" filepath="$PROJECT_DIR$/geofen.iml" />
       <module fileurl="file://C:\Users\MANNE\Documents\PruebaParcialMoviles\geofen\geofen.iml" filepath="C:\Users\MANNE\Documents\PruebaParcialMoviles\geofen\geofen.iml" />
+=======
+      <module fileurl="file://C:\Users\USER\Documents\GitHub\PruebaParcialMoviles\geofen\app\app.iml" filepath="C:\Users\USER\Documents\GitHub\PruebaParcialMoviles\geofen\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/geofen.iml" filepath="$PROJECT_DIR$/geofen.iml" />
+      <module fileurl="file://C:\Users\USER\Documents\GitHub\PruebaParcialMoviles\geofen\geofen.iml" filepath="C:\Users\USER\Documents\GitHub\PruebaParcialMoviles\geofen\geofen.iml" />
+>>>>>>> f50efd5c7a962aa98b6aebc81af2c40612b01568
     </modules>
   </component>
 </project>
