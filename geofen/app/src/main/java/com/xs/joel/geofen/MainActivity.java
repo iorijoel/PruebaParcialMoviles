@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity
 
         //TIPO DE VISTA
         //map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-        String mica=hola soy byron;
+        //String mica=Sandra;
         map.getUiSettings().setZoomControlsEnabled(true);
 
         //Toast.makeText(this, "MAPA LISTO", Toast.LENGTH_SHORT).show();
