@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity
 
         //TIPO DE VISTA
         //map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-        String mica=hola soy byron;
+        //String mica=hola soy byron;
         map.getUiSettings().setZoomControlsEnabled(true);
 
         //Toast.makeText(this, "MAPA LISTO", Toast.LENGTH_SHORT).show();
@@ -245,8 +245,8 @@ public class MainActivity extends AppCompatActivity
 
         GEOFENCE_REQ_ID = "Agrarias";
         GEOFENCE_RADIUS = 50.0f;
-        Double l1 = Double.parseDouble("-1.0129049");
-        Double l2 = Double.parseDouble("-79.469296");
+        l1 = Double.parseDouble("-1.0129049");
+        l2 = Double.parseDouble("-79.469296");
 
         markerForGeofence(new LatLng(l1, l2),GEOFENCE_REQ_ID,GEOFENCE_RADIUS);
         Toast.makeText(this, "GEOFENCING "+GEOFENCE_REQ_ID+" CREADO", Toast.LENGTH_SHORT).show();
@@ -255,8 +255,8 @@ public class MainActivity extends AppCompatActivity
 
         GEOFENCE_REQ_ID = "Ambientales";
         GEOFENCE_RADIUS = 50.0f;
-        Double l1 = Double.parseDouble("-1.0126903");
-        Double l2 = Double.parseDouble("-79.471026");
+        l1 = Double.parseDouble("-1.0126903");
+        l2 = Double.parseDouble("-79.471026");
 
         markerForGeofence(new LatLng(l1, l2),GEOFENCE_REQ_ID,GEOFENCE_RADIUS);
         Toast.makeText(this, "GEOFENCING "+GEOFENCE_REQ_ID+" CREADO", Toast.LENGTH_SHORT).show();
@@ -265,8 +265,8 @@ public class MainActivity extends AppCompatActivity
 
         GEOFENCE_REQ_ID = "Ingeniería";
         GEOFENCE_RADIUS = 50.0f;
-        Double l1 = Double.parseDouble("-1.0125938");
-        Double l2 = Double.parseDouble("-79.470618");
+        l1 = Double.parseDouble("-1.0125938");
+        l2 = Double.parseDouble("-79.470618");
 
         markerForGeofence(new LatLng(l1, l2),GEOFENCE_REQ_ID,GEOFENCE_RADIUS);
         Toast.makeText(this, "GEOFENCING "+GEOFENCE_REQ_ID+" CREADO", Toast.LENGTH_SHORT).show();
