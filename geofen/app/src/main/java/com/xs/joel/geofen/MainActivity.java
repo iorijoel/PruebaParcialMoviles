@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity
         map = googleMap;
 
         //TIPO DE VISTA
-        //map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         map.getUiSettings().setZoomControlsEnabled(true);
 
         //Toast.makeText(this, "MAPA LISTO", Toast.LENGTH_SHORT).show();
