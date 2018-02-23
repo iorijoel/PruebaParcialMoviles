@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity
         map = googleMap;
 
         //TIPO DE VISTA
-        //map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         //String mica=hola soy byron;
         //String mica=Sandra;
         map.getUiSettings().setZoomControlsEnabled(true);
@@ -338,8 +338,8 @@ public class MainActivity extends AppCompatActivity
                 locationMarker.remove();
             locationMarker = map.addMarker(markerOptions);
             float zoom = 16f;
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, zoom);
-            map.animateCamera(cameraUpdate);
+//            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, zoom);
+//            map.animateCamera(cameraUpdate);
         }
     }
 
