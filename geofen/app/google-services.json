@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "871806582209",
+    "firebase_url": "https://dauntless-arc-192622.firebaseio.com",
+    "project_id": "dauntless-arc-192622",
+    "storage_bucket": "dauntless-arc-192622.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871806582209:android:469636ba68e1a7a1",
+        "android_client_info": {
+          "package_name": "com.xs.joel.geofen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "871806582209-k2jvbims10a2rts36jt5u76l1a7mj9vj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBr9uKSvJ55BWhOuHrhDQO40A-fKWJbkxk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
