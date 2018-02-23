@@ -174,11 +174,8 @@ public class MainActivity extends AppCompatActivity
 
         //TIPO DE VISTA
         //map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-<<<<<<< HEAD
         //String mica=hola soy byron;
-=======
         //String mica=Sandra;
->>>>>>> 2dfbc5ea30e0797a8eb3e8cc91eac8bcb70818cb
         map.getUiSettings().setZoomControlsEnabled(true);
 
         //Toast.makeText(this, "MAPA LISTO", Toast.LENGTH_SHORT).show();
@@ -239,7 +236,7 @@ public class MainActivity extends AppCompatActivity
 
 
         GEOFENCE_REQ_ID = "Empresariales";
-        GEOFENCE_RADIUS = 50.0f;
+        GEOFENCE_RADIUS = 20.0f;
         Double l1 = Double.parseDouble("-1.0121647");
         Double l2 = Double.parseDouble("-79.470063");
 
@@ -248,7 +245,7 @@ public class MainActivity extends AppCompatActivity
 
 
         GEOFENCE_REQ_ID = "Agrarias";
-        GEOFENCE_RADIUS = 50.0f;
+       // GEOFENCE_RADIUS = 50.0f;
         l1 = Double.parseDouble("-1.0129049");
         l2 = Double.parseDouble("-79.469296");
 
@@ -258,7 +255,7 @@ public class MainActivity extends AppCompatActivity
 
 
         GEOFENCE_REQ_ID = "Ambientales";
-        GEOFENCE_RADIUS = 50.0f;
+        //GEOFENCE_RADIUS = 50.0f;
         l1 = Double.parseDouble("-1.0126903");
         l2 = Double.parseDouble("-79.471026");
 
@@ -268,7 +265,7 @@ public class MainActivity extends AppCompatActivity
 
 
         GEOFENCE_REQ_ID = "Ingeniería";
-        GEOFENCE_RADIUS = 50.0f;
+        //GEOFENCE_RADIUS = 50.0f;
         l1 = Double.parseDouble("-1.0125938");
         l2 = Double.parseDouble("-79.470618");
 
