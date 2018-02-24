@@ -1,4 +1,4 @@
-package com.xs.joel.geofen;
+package com.example.yanez.geofence;
 
 import android.Manifest;
 import android.app.PendingIntent;
@@ -14,9 +14,15 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.yanez.geofence.Model.MyResponse;
+import com.example.yanez.geofence.Model.Notification;
+import com.example.yanez.geofence.Model.Sender;
+import com.example.yanez.geofence.Remote.APIService;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -38,6 +44,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
+
+import com.example.yanez.geofence.datos;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class MainActivity extends AppCompatActivity
         implements
@@ -46,9 +60,13 @@ public class MainActivity extends AppCompatActivity
         LocationListener,
         OnMapReadyCallback,
         ResultCallback<Status> {
+    public static String user;
 
+
+
+    private APIService mService;
     private static final String TAG = MainActivity.class.getSimpleName();
-
+    private Button btnEnviar;
     private GoogleMap map;
     private GoogleApiClient googleApiClient;
     private Location lastLocation;
@@ -78,93 +96,167 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textLat = (TextView) findViewById(R.id.lat);
         textLong = (TextView) findViewById(R.id.lon);
+        TextView textView = (TextView) findViewById(R.id.txtError);
+        Common.currentToken = FirebaseInstanceId.getInstance().getToken();
+        mService = Common.GETFCMClient();
+            // initialize GoogleMaps
 
-        // initialize GoogleMaps
+        Bundle bundle = this.getIntent().getExtras();
+        textView.setText(bundle.getString("Nombre"));
+        user = bundle.getString("Nombre");
         initGMaps();
 
         // create GoogleApiClient
         createGoogleApi();
     }
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        Log.i(TAG, "onConnected()");
+        getLastKnownLocation();
 
-            // Create GoogleApiClient instance
-            private void createGoogleApi() {
-                Log.d(TAG, "createGoogleApi()");
-                if ( googleApiClient == null ) {
-                    googleApiClient = new GoogleApiClient.Builder( this )
-                            .addConnectionCallbacks( this )
-                            .addOnConnectionFailedListener( this )
-                            .addApi( LocationServices.API )
-                            .build();
+        //Toast.makeText(this, "DENTRO DEL ONCONNECTED", Toast.LENGTH_SHORT).show();
+
+        //parametros de configracion de geofencing
+        String GEOFENCE_REQ_ID; //NOMBRE
+        float GEOFENCE_RADIUS;//RADIO DE GEOFENCE
+
+
+        GEOFENCE_REQ_ID = "Empresariales";
+        GEOFENCE_RADIUS = 25.0f;
+        Double l1 = Double.parseDouble("-1.0121647");
+        Double l2 = Double.parseDouble("-79.470063");
+
+        markerForGeofence(new LatLng(l1, l2),GEOFENCE_REQ_ID,GEOFENCE_RADIUS);
+        Toast.makeText(this, "GEOFENCING "+GEOFENCE_REQ_ID+" CREADO", Toast.LENGTH_SHORT).show();
+
+
+        GEOFENCE_REQ_ID = "Agrarias";
+        // GEOFENCE_RADIUS = 50.0f;
+        l1 = Double.parseDouble("-1.0129049");
+        l2 = Double.parseDouble("-79.469296");
+
+        markerForGeofence(new LatLng(l1, l2),GEOFENCE_REQ_ID,GEOFENCE_RADIUS);
+        Toast.makeText(this, "GEOFENCING "+GEOFENCE_REQ_ID+" CREADO", Toast.LENGTH_SHORT).show();
+
+
+
+        GEOFENCE_REQ_ID = "Ambientales";
+        //GEOFENCE_RADIUS = 50.0f;
+        l1 = Double.parseDouble("-1.0126903");
+        l2 = Double.parseDouble("-79.471026");
+
+        markerForGeofence(new LatLng(l1, l2),GEOFENCE_REQ_ID,GEOFENCE_RADIUS);
+        Toast.makeText(this, "GEOFENCING "+GEOFENCE_REQ_ID+" CREADO", Toast.LENGTH_SHORT).show();
+
+
+
+        GEOFENCE_REQ_ID = "Ingeniería";
+        //GEOFENCE_RADIUS = 50.0f;
+        l1 = Double.parseDouble("-1.0125938");
+        l2 = Double.parseDouble("-79.470618");
+
+        markerForGeofence(new LatLng(l1, l2),GEOFENCE_REQ_ID,GEOFENCE_RADIUS);
+        Toast.makeText(this, "GEOFENCING "+GEOFENCE_REQ_ID+" CREADO", Toast.LENGTH_SHORT).show();
+
+
+
+
+        GEOFENCE_REQ_ID = "Casa Joel";
+        //GEOFENCE_RADIUS = 50.0f;
+        l1 = Double.parseDouble("-0.9434536");
+        l2 = Double.parseDouble("-79.2449333");
+
+        markerForGeofence(new LatLng(l1, l2),GEOFENCE_REQ_ID,GEOFENCE_RADIUS);
+        Toast.makeText(this, "GEOFENCING "+GEOFENCE_REQ_ID+" CREADO", Toast.LENGTH_SHORT).show();
+
+/*        Toast.makeText(this, "INICIANDO GEOFENCE", Toast.LENGTH_SHORT).show();
+        //agregar otro llamado
+        startGeofence();*/
+
+    }
+    // Create GoogleApiClient instance
+    private void createGoogleApi() {
+        Log.d(TAG, "createGoogleApi()");
+        if ( googleApiClient == null ) {
+            googleApiClient = new GoogleApiClient.Builder( this )
+                    .addConnectionCallbacks( this )
+                    .addOnConnectionFailedListener( this )
+                    .addApi( LocationServices.API )
+                    .build();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Call GoogleApiClient connection when starting the Activity
+        googleApiClient.connect();
+
+
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        // Disconnect GoogleApiClient when stopping Activity
+        googleApiClient.disconnect();
+    }
+    //INICIO PERMISOS
+    private final int REQ_PERMISSION = 999;
+    // Check for permission to access Location
+    private boolean checkPermission() {
+        Log.d(TAG, "checkPermission()");
+        // Ask for permission if it wasn't granted yet
+        return (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED );
+    }
+    // Asks for permission
+    private void askPermission() {
+        Log.d(TAG, "askPermission()");
+        ActivityCompat.requestPermissions(
+                this,
+                new String[] { Manifest.permission.ACCESS_FINE_LOCATION },
+                REQ_PERMISSION
+        );
+    }
+    // Verify user's response of the permission requested
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        Log.d(TAG, "onRequestPermissionsResult()");
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch ( requestCode ) {
+            case REQ_PERMISSION: {
+                if ( grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED ){
+                    // Permission granted
+                    getLastKnownLocation();
+                } else {
+                    // Permission denied
+                    permissionsDenied();
                 }
+                break;
             }
+        }
+    }
+    // App cannot work without the permissions
+    private void permissionsDenied() {
+        Log.w(TAG, "permissionsDenied()");
+        // TODO close app and warn user
+    }
 
-            @Override
-            protected void onStart() {
-                super.onStart();
-                // Call GoogleApiClient connection when starting the Activity
-                googleApiClient.connect();
-            }
-
-            @Override
-            protected void onStop() {
-                super.onStop();
-                // Disconnect GoogleApiClient when stopping Activity
-                googleApiClient.disconnect();
-            }
-                        //INICIO PERMISOS
-                        private final int REQ_PERMISSION = 999;
-                        // Check for permission to access Location
-                        private boolean checkPermission() {
-                            Log.d(TAG, "checkPermission()");
-                            // Ask for permission if it wasn't granted yet
-                            return (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                                    == PackageManager.PERMISSION_GRANTED );
-                        }
-                        // Asks for permission
-                        private void askPermission() {
-                            Log.d(TAG, "askPermission()");
-                            ActivityCompat.requestPermissions(
-                                    this,
-                                    new String[] { Manifest.permission.ACCESS_FINE_LOCATION },
-                                    REQ_PERMISSION
-                            );
-                        }
-                        // Verify user's response of the permission requested
-                        @Override
-                        public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-                            Log.d(TAG, "onRequestPermissionsResult()");
-                            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-                            switch ( requestCode ) {
-                                case REQ_PERMISSION: {
-                                    if ( grantResults.length > 0
-                                            && grantResults[0] == PackageManager.PERMISSION_GRANTED ){
-                                        // Permission granted
-                                        getLastKnownLocation();
-                                    } else {
-                                        // Permission denied
-                                        permissionsDenied();
-                                    }
-                                    break;
-                                }
-                            }
-                        }
-                        // App cannot work without the permissions
-                        private void permissionsDenied() {
-                            Log.w(TAG, "permissionsDenied()");
-                            // TODO close app and warn user
-                        }
-
-            // Initialize GoogleMaps
-            private void initGMaps(){
-                mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
-                mapFragment.getMapAsync(this);
-            }
+    // Initialize GoogleMaps
+    private void initGMaps(){
+        mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+    }
 
     // Callback called when Map is ready
     @Override
@@ -173,7 +265,7 @@ public class MainActivity extends AppCompatActivity
         map = googleMap;
 
         //TIPO DE VISTA
-        map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        //map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         //String mica=hola soy byron;
         //String mica=Sandra;
         map.getUiSettings().setZoomControlsEnabled(true);
@@ -223,60 +315,7 @@ public class MainActivity extends AppCompatActivity
         writeActualLocation(location);
     }
 
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        Log.i(TAG, "onConnected()");
-        getLastKnownLocation();
 
-        //Toast.makeText(this, "DENTRO DEL ONCONNECTED", Toast.LENGTH_SHORT).show();
-
-        //parametros de configracion de geofencing
-        String GEOFENCE_REQ_ID; //NOMBRE
-        float GEOFENCE_RADIUS;//RADIO DE GEOFENCE
-
-
-        GEOFENCE_REQ_ID = "Empresariales";
-        GEOFENCE_RADIUS = 20.0f;
-        Double l1 = Double.parseDouble("-1.0121647");
-        Double l2 = Double.parseDouble("-79.470063");
-
-        markerForGeofence(new LatLng(l1, l2),GEOFENCE_REQ_ID,GEOFENCE_RADIUS);
-        Toast.makeText(this, "GEOFENCING "+GEOFENCE_REQ_ID+" CREADO", Toast.LENGTH_SHORT).show();
-
-
-        GEOFENCE_REQ_ID = "Agrarias";
-       // GEOFENCE_RADIUS = 50.0f;
-        l1 = Double.parseDouble("-1.0129049");
-        l2 = Double.parseDouble("-79.469296");
-
-        markerForGeofence(new LatLng(l1, l2),GEOFENCE_REQ_ID,GEOFENCE_RADIUS);
-        Toast.makeText(this, "GEOFENCING "+GEOFENCE_REQ_ID+" CREADO", Toast.LENGTH_SHORT).show();
-
-
-
-        GEOFENCE_REQ_ID = "Ambientales";
-        //GEOFENCE_RADIUS = 50.0f;
-        l1 = Double.parseDouble("-1.0126903");
-        l2 = Double.parseDouble("-79.471026");
-
-        markerForGeofence(new LatLng(l1, l2),GEOFENCE_REQ_ID,GEOFENCE_RADIUS);
-        Toast.makeText(this, "GEOFENCING "+GEOFENCE_REQ_ID+" CREADO", Toast.LENGTH_SHORT).show();
-
-
-
-        GEOFENCE_REQ_ID = "Ingeniería";
-        //GEOFENCE_RADIUS = 50.0f;
-        l1 = Double.parseDouble("-1.0125938");
-        l2 = Double.parseDouble("-79.470618");
-
-        markerForGeofence(new LatLng(l1, l2),GEOFENCE_REQ_ID,GEOFENCE_RADIUS);
-        Toast.makeText(this, "GEOFENCING "+GEOFENCE_REQ_ID+" CREADO", Toast.LENGTH_SHORT).show();
-
-/*        Toast.makeText(this, "INICIANDO GEOFENCE", Toast.LENGTH_SHORT).show();
-        //agregar otro llamado
-        startGeofence();*/
-
-    }
 
     @Override
     public void onConnectionSuspended(int i) {
@@ -338,8 +377,8 @@ public class MainActivity extends AppCompatActivity
                 locationMarker.remove();
             locationMarker = map.addMarker(markerOptions);
             float zoom = 16f;
-//            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, zoom);
-//            map.animateCamera(cameraUpdate);
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, zoom);
+            map.animateCamera(cameraUpdate);
         }
     }
 
@@ -355,8 +394,8 @@ public class MainActivity extends AppCompatActivity
                 .title(title);
         if ( map!=null ) {
             // Remove last geoFenceMarker
-                //if (geoFenceMarker != null)
-                //    geoFenceMarker.remove();
+            //if (geoFenceMarker != null)
+            //    geoFenceMarker.remove();
 
             geoFenceMarker = map.addMarker(markerOptions);
             drawGeofence(geoFenceMarker,radio);
@@ -408,7 +447,7 @@ public class MainActivity extends AppCompatActivity
         if ( geoFencePendingIntent != null )
             return geoFencePendingIntent;
 
-        Intent intent = new Intent( this, GeofenceTransitionService.class);
+        Intent intent = new Intent( this, Gts.class);
         return PendingIntent.getService(
                 this, GEOFENCE_REQ_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT );
     }

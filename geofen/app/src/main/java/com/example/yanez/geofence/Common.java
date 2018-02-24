@@ -1,14 +1,15 @@
-package com.xs.joel.geofen;
+package com.example.yanez.geofence;
 
-import com.xs.joel.geofen.Remote.APIService;
-import com.xs.joel.geofen.Remote.RetrofitClient;
+import com.example.yanez.geofence.Remote.APIService;
+import com.example.yanez.geofence.Remote.RetrofitClient;
 
 /**
- * Created by joel_ on 8/2/2018.
+ * Created by YANEZ on 08/02/2018.
  */
 
 public class Common {
     public static String currentToken = "";
+
     private static String baseUrl="https://fcm.googleapis.com/";
 
     public static APIService GETFCMClient()
@@ -16,5 +17,5 @@ public class Common {
         return RetrofitClient.getClient(baseUrl).create(APIService.class);
     }
 
-
 }
+

@@ -1,15 +1,14 @@
-package com.xs.joel.geofen.Service;
+package com.example.yanez.geofence.Service;
 
+import com.example.yanez.geofence.Common;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
-import com.xs.joel.geofen.Common;
 
 /**
- * Created by joel_ on 8/2/2018.
+ * Created by YANEZ on 08/02/2018.
  */
 
 public class MyFirebaseService extends FirebaseInstanceIdService {
-
     @Override
     public void onTokenRefresh() {
         super.onTokenRefresh();

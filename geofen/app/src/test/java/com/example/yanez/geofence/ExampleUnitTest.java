@@ -1,4 +1,4 @@
-package com.xs.joel.geofen;
+package com.example.yanez.geofence;
 
 import org.junit.Test;
 

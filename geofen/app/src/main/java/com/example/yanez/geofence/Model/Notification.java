@@ -1,7 +1,7 @@
-package com.xs.joel.geofen.Model;
+package com.example.yanez.geofence.Model;
 
 /**
- * Created by joel_ on 15/2/2018.
+ * Created by YANEZ on 15/02/2018.
  */
 
 public class Notification {
@@ -12,6 +12,4 @@ public class Notification {
         this.body = body;
         this.title = title;
     }
-
-
 }

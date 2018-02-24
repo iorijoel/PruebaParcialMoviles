@@ -1,4 +1,4 @@
-package com.xs.joel.geofen.Service;
+package com.example.yanez.geofence.Service;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -8,27 +8,27 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
+import com.example.yanez.geofence.MainActivity;
+import com.example.yanez.geofence.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.xs.joel.geofen.MainActivity;
-import com.xs.joel.geofen.R;
 
 /**
- * Created by joel_ on 8/2/2018.
+ * Created by YANEZ on 08/02/2018.
  */
 
 public class MyFirebaseMessaging extends FirebaseMessagingService {
-
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-
         showNotification(remoteMessage.getNotification());
 
     }
 
     private void showNotification(RemoteMessage.Notification notification) {
         Intent intent = new Intent(this, MainActivity.class);
+
+
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,intent,0);
@@ -45,4 +45,3 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
     }
 
 }
-

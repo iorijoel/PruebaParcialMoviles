@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Geofencing Varios puntos</string>
+    <string name="app_name">Geofence</string>
+    <string name="user">jordan</string>
+    <string name="facultad"></string>
 </resources>

@@ -1,9 +1,9 @@
-package com.xs.joel.geofen.Model;
+package com.example.yanez.geofence.Model;
 
 import java.util.List;
 
 /**
- * Created by joel_ on 15/2/2018.
+ * Created by YANEZ on 15/02/2018.
  */
 
 public class MyResponse {
@@ -13,8 +13,7 @@ public class MyResponse {
     public int canonical_ids;
     public List<Result> results;
 
-    public MyResponse() {
-
+       public MyResponse() {
     }
 
     public MyResponse(long multicast_id, int success, int failure, int canonical_ids, List<Result> results) {
@@ -29,19 +28,20 @@ public class MyResponse {
         return multicast_id;
     }
 
+    public void setMulticast_id(long multicast_id) {
+        this.multicast_id = multicast_id;
+    }
+
     public int getSuccess() {
         return success;
+    }
+
+    public void setSuccess(int success) {
+        this.success = success;
     }
 
     public int getFailure() {
         return failure;
     }
 
-    public int getCanonical_ids() {
-        return canonical_ids;
-    }
-
-    public List<Result> getResults() {
-        return results;
-    }
 }

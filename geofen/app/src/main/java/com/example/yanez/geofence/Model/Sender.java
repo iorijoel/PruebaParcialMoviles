@@ -1,11 +1,10 @@
-package com.xs.joel.geofen.Model;
+package com.example.yanez.geofence.Model;
 
 /**
- * Created by joel_ on 15/2/2018.
+ * Created by YANEZ on 15/02/2018.
  */
 
 public class Sender {
-
     public Notification notification;
     public String to;
 
@@ -29,5 +28,5 @@ public class Sender {
     public void setTo(String to) {
         this.to = to;
     }
-
 }
+

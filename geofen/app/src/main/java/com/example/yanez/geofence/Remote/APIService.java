@@ -1,7 +1,7 @@
-package com.xs.joel.geofen.Remote;
+package com.example.yanez.geofence.Remote;
 
-import com.xs.joel.geofen.Model.MyResponse;
-import com.xs.joel.geofen.Model.Sender;
+import com.example.yanez.geofence.Model.MyResponse;
+import com.example.yanez.geofence.Model.Sender;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -9,7 +9,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 /**
- * Created by joel_ on 15/2/2018.
+ * Created by YANEZ on 15/02/2018.
  */
 
 public interface APIService {
@@ -22,5 +22,4 @@ public interface APIService {
     })
     @POST("fcm/send")
     Call<MyResponse> sendNotification(@Body Sender body);
-
 }

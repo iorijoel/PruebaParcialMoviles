@@ -1,14 +1,12 @@
-package com.xs.joel.geofen.Remote;
+package com.example.yanez.geofence.Remote;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by joel_ on 15/2/2018.
+ * Created by YANEZ on 15/02/2018.
  */
-
 public class RetrofitClient {
-
     private static Retrofit retrofit = null;
     public static Retrofit getClient (String baseURL)
     {
@@ -21,5 +19,5 @@ public class RetrofitClient {
         }
         return retrofit;
     }
-
 }
+

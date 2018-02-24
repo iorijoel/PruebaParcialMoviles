@@ -1,4 +1,4 @@
-package com.xs.joel.geofen;
+package com.example.yanez.geofence;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.xs.joel.geofen", appContext.getPackageName());
+        assertEquals("com.example.yanez.geofence", appContext.getPackageName());
     }
 }
